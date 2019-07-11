@@ -45,11 +45,10 @@ public class ChatActivity extends AppCompatActivity {
     private MsgAdapter msgAdapter;
     private Handler mHandler;
     private FacetimeActivity facetimeActivity;
-    public static ChatService chatService;
     public static final int MESSAGE_LOG = 0x400 + 1;
     public static final int MESSAGE_NEWMSG = 0x400 + 2;
-    private static String friendName;
     public boolean show_log = true;
+    public Friend fInfo;
 
     public void log(String string) {
         //MsgQ message = mHandler.obtainMessage(MESSAGE_LOG, string);
@@ -103,15 +102,13 @@ public class ChatActivity extends AppCompatActivity {
         LinearLayoutManager mlayoutManager = new LinearLayoutManager(this);
 //        mlayoutManager.setStackFromEnd(true);
         //更新顶部名字栏UI
+
         Intent intent = this.getIntent();
-        final Friend fInfo = (Friend) intent.getSerializableExtra("Info");
-        friendName = fInfo.getName();
-        FriendName.setText(friendName);
+        fInfo = (Friend) intent.getSerializableExtra("Info");
+        FriendName.setText(fInfo.getName());
 
         //抓取聊天记录
-//        List<MsgQ> oldRecords = ChatRecords.getRecords(friendName);
-//        if(oldRecords!=null)
-//            msgList.addAll(oldRecords);
+       // msgList = ChatRecords.getRecords(fInfo.getName());
 //        Log.d("聊天记录",msgList.get(1).getContent());
 
         //
@@ -173,15 +170,20 @@ public class ChatActivity extends AppCompatActivity {
                     showMsg(msg);
                     inputText.setText("");//clear
 
-                    chatService.sendMessage(content);
+                    ChatService.chatService.sendMessage(content);
                 }
             }
         });
 
-        chatService = new ChatService(this);
-        chatService.startListening();
+        ChatService.chatService.chatActivity = this;
+
         log("Program started.");
 
+    }
+
+    protected void onDestroy() {
+        super.onDestroy();;
+        Log.d("TAG", "关了");
     }
 
     @Override

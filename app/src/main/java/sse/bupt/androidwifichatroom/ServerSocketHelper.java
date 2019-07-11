@@ -13,10 +13,11 @@ import java.net.InetAddress;
 
 public class ServerSocketHelper {
     private ChatActivity chatActivity;
-    private int port = 14396;
+    private int port;
 
-    ServerSocketHelper(ChatActivity chatActivity){
+    ServerSocketHelper(ChatActivity chatActivity, int port){
         this.chatActivity = chatActivity;
+        this.port = port;
     }
 
     private void broadcast(String msg, int port) throws IOException{
@@ -25,7 +26,9 @@ public class ServerSocketHelper {
         if(address.isEmpty()){
             address = "255.255.255.255";
         }
-        chatActivity.log("Broadcast to address: "+address);
+        if(chatActivity!=null) {
+            chatActivity.log("Broadcast to address: " + address);
+        }
         DatagramPacket datagramPacket = new DatagramPacket(msg.getBytes(), msg.getBytes().length,
                 InetAddress.getByName(address), port);
         datagramSocket.send(datagramPacket);
@@ -37,11 +40,51 @@ public class ServerSocketHelper {
             public void run() {
                 try {
                     broadcast(msg, port);
-                    chatActivity.log("Broadcast: " + msg);
+                    if(chatActivity!=null) {
+                        chatActivity.log("Broadcast: " + msg);
+                    }
                 } catch (Exception e) {
-                    chatActivity.log("Broadcast exception: " + e.toString());
+                    if(chatActivity!=null) {
+                        chatActivity.log("Broadcast exception: " + e.toString());
+                    }
                 }
             }
         }.start();
+    }
+
+    public void sendReply(String msg, String ip){
+        try {
+            DatagramSocket datagramSocket = new DatagramSocket();
+            String address = ip;
+            if(chatActivity!=null) {
+                chatActivity.log("Send reply to address: " + address);
+            }
+            DatagramPacket datagramPacket = new DatagramPacket(msg.getBytes(), msg.getBytes().length,
+                    InetAddress.getByName(address), port);
+            datagramSocket.send(datagramPacket);
+            datagramSocket.close();
+        } catch (Exception e) {
+            if(chatActivity!=null) {
+                chatActivity.log("Reply exception: " + e.toString());
+            }
+        }
+    }
+
+    public void sendInit(String msg){
+        try {
+            DatagramSocket datagramSocket = new DatagramSocket();
+            String address = "255.255.255.255";
+            if(chatActivity!=null) {
+                chatActivity.log("Send init to address: " + address);
+            }
+            DatagramPacket datagramPacket = new DatagramPacket(msg.getBytes(), msg.getBytes().length,
+                    InetAddress.getByName(address), port);
+            datagramSocket.send(datagramPacket);
+            datagramSocket.close();
+        } catch (Exception e) {
+            if(chatActivity!=null) {
+                chatActivity.log("Init exception: " + e.toString());
+            }
+        }
     }
 }

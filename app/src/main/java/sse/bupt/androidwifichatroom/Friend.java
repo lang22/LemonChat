@@ -4,7 +4,6 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,51 +12,35 @@ import java.util.List;
 
 public class Friend implements Serializable {
     private String name;
+    private List<MsgQ> msgList;
+    private String ip;
 
-//    static class TxView extends android.support.v7.widget.AppCompatImageView implements Serializable{
-//
-//        public TxView(Context context) {
-//            super(context);
-//        }
-//    }
-//    private TxView tx;
-    private List<MsgQ> msgList = new ArrayList<MsgQ>();
-
-    public Friend(String name){
+    public Friend(String name,ImageView tx){
         this.name = name;
-
-//        this.tx = (TxView) tx;
     }
+    public Friend(String name){ this.name = name;}
 
-    public Friend(String name,List<MsgQ> newList){
-        this.name = name;
-        if (newList!=null)
-            this.msgList.addAll(newList);
-    }
     public String getName(){
         return name;
     }
-
-//    public ImageView getTx(){
-//        return tx;
-//    }
 
     public void setName(String newName){
         name = newName;
     }
 
-//    public void setTx(ImageView newTx){
-//        tx = (TxView)newTx;
-//    }
-
     public List<MsgQ> getMsgList(){ return msgList; }
 
-    public void setMsgList(List<MsgQ> newMsgList){
-        if (newMsgList!=null)
-            msgList.addAll(newMsgList);
-    }
+    public void setMsgList(List<MsgQ> newMsgList){ msgList = newMsgList; }
 
     private String Id = name+System.currentTimeMillis();
 
     public String getId(){ return Id; }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
 }
