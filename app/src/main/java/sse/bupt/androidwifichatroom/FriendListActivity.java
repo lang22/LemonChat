@@ -47,23 +47,43 @@ public class FriendListActivity extends AppCompatActivity {
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(FriendListActivity.this,ChatActivity.class);
                 intent.putExtra("Info",friendList.get(position));//将头像和名称传递给chatactivity
-                startActivity(intent);
+                Log.d("初始",friendList.get(position).toString());
+                startActivityForResult(intent,1);
             }
         });
         fRecycleView.setAdapter(friendAdapter);
     }
 
+    @Override
+    public void onActivityResult(int requestCode,int resultCode,Intent intent){
+        Log.d("到这了1",requestCode+"");
+        switch (requestCode){
+            case 1:
+                Log.d("到这了2",resultCode+"");
+                if(resultCode == RESULT_OK){
+                    Log.d("到这了3",resultCode+"");
+                    Intent intent1 = this.getIntent();
+//                    Friend f = (Friend) intent1.getSerializableExtra("records");
+//                    ChatRecords.update(f);
+//                    Log.d("返回",ChatRecords.getRecords(f.getName()).toString());
+                }
+                break;
+            default:
+        }
+    }
+
+
     private void initFriendList() {
         ImageView tx1 = new ImageView(this);
         tx1.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.circle_arrow_left));
-        Friend f1 = new Friend("邢凯",tx1);
+        Friend f1 = new Friend("邢凯");
         Log.d("骚凯", "initFriendList: "+friendList.toString());
         friendList.add(f1);
         ChatRecords.update(f1);
 
         ImageView tx2 = new ImageView(this);
         tx2.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.circle_arrow_right));
-        Friend f2 = new Friend("程元",tx2);
+        Friend f2 = new Friend("程元");
         friendList.add(f2);
         ChatRecords.update(f1);
 

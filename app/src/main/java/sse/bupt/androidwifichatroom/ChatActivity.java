@@ -40,6 +40,7 @@ public class ChatActivity extends AppCompatActivity {
     private TextView send;
     private RecyclerView msgRecycleView;
     private Button btnFacetime;
+    private Button backToFather;
     private TextView FriendName;
     private MsgAdapter msgAdapter;
     private Handler mHandler;
@@ -47,6 +48,7 @@ public class ChatActivity extends AppCompatActivity {
     public static ChatService chatService;
     public static final int MESSAGE_LOG = 0x400 + 1;
     public static final int MESSAGE_NEWMSG = 0x400 + 2;
+    private static String friendName;
     public boolean show_log = true;
 
     public void log(String string) {
@@ -94,6 +96,7 @@ public class ChatActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_chat);
         checkPermission();
+        backToFather = (Button) findViewById(R.id.back);
         FriendName = (TextView) findViewById(R.id.opposite_name);
         inputText = (EditText) findViewById(R.id.inputText);
         msgRecycleView = (RecyclerView)findViewById(R.id.chat_window);
@@ -102,10 +105,13 @@ public class ChatActivity extends AppCompatActivity {
         //更新顶部名字栏UI
         Intent intent = this.getIntent();
         final Friend fInfo = (Friend) intent.getSerializableExtra("Info");
-        FriendName.setText(fInfo.getName());
+        friendName = fInfo.getName();
+        FriendName.setText(friendName);
 
         //抓取聊天记录
-        msgList = ChatRecords.getRecords(fInfo.getName());
+//        List<MsgQ> oldRecords = ChatRecords.getRecords(friendName);
+//        if(oldRecords!=null)
+//            msgList.addAll(oldRecords);
 //        Log.d("聊天记录",msgList.get(1).getContent());
 
         //
@@ -126,6 +132,15 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        //返回上层
+
+
+        backToFather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         mHandler = new Handler(Looper.getMainLooper()) {
             @Override
@@ -169,4 +184,13 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed(){
+//        Friend friend = new Friend(friendName,msgList);
+        Intent  intent1 = new Intent();
+//        intent1.putExtra("records",friend);
+        setResult(RESULT_OK,intent1);
+        super.onBackPressed();
+        finish();
+    }
 }

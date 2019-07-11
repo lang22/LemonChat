@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,13 +21,19 @@ public class Friend implements Serializable {
 //        }
 //    }
 //    private TxView tx;
-    private List<MsgQ> msgList;
+    private List<MsgQ> msgList = new ArrayList<MsgQ>();
 
-    public Friend(String name,ImageView tx){
+    public Friend(String name){
         this.name = name;
+
 //        this.tx = (TxView) tx;
     }
 
+    public Friend(String name,List<MsgQ> newList){
+        this.name = name;
+        if (newList!=null)
+            this.msgList.addAll(newList);
+    }
     public String getName(){
         return name;
     }
@@ -45,7 +52,10 @@ public class Friend implements Serializable {
 
     public List<MsgQ> getMsgList(){ return msgList; }
 
-    public void setMsgList(List<MsgQ> newMsgList){ msgList = newMsgList; }
+    public void setMsgList(List<MsgQ> newMsgList){
+        if (newMsgList!=null)
+            msgList.addAll(newMsgList);
+    }
 
     private String Id = name+System.currentTimeMillis();
 
