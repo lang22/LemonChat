@@ -15,7 +15,6 @@ class ChatService {
     private ClientSocketHelper clientSocketHelper;
 
     ChatService() {
-        this.name = MyInfo.getMyName();
     }
 
     void sendMessage(String msg) {
@@ -46,8 +45,8 @@ class ChatService {
                         }
 
                         String filtered_Name = msgP.contenT;
-                        if(!"群聊".equals(name)){
-                            filtered_Name = filtered_Name.substring(name.length()+1);
+                        if(chatActivity != null && !"群聊".equals(chatActivity.fInfo.getName())){
+                            filtered_Name = filtered_Name.substring(chatActivity.fInfo.getName().length()+1);
                         }
                         msgQ.setContent(filtered_Name);
 
