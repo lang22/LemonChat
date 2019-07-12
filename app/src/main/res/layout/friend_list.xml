@@ -43,13 +43,14 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/facetime"
+            android:id="@+id/info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:background="@android:drawable/star_big_on"
-            android:scaleY="0.8" />
+            android:layout_weight="1.5"
+            android:background="@android:color/transparent"
+            android:scaleY="0.8"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
@@ -105,7 +106,7 @@
                 android:fontFamily="monospace"
                 android:gravity="center_vertical|start"
                 android:paddingLeft="10dp"
-                android:text="全民制作人们"
+                android:text="群聊"
                 android:textAlignment="viewStart"
                 android:textColor="@android:color/black"
                 android:textSize="24sp" />
@@ -136,7 +137,7 @@
         tools:layout_editor_absoluteY="526dp">
 
         <TextView
-            android:id="@+id/send"
+            android:id="@+id/logout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
@@ -145,7 +146,7 @@
             android:backgroundTint="@color/colorPrimary"
             android:gravity="center"
             android:padding="6dp"
-            android:text="Todo"
+            android:text="Log out"
             android:textAlignment="center"
             android:textColor="@android:color/background_light"
             android:textSize="18sp" />

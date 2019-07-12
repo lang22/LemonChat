@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,13 +29,33 @@ public class FriendListActivity extends AppCompatActivity {
     private LinearLayout fLinearLayout;
     private ImageView fImageView;
     private TextView fTextView;
+    private Button Myinfo;
+    private TextView logout;
     private List<Friend> friendList = new ArrayList<Friend>();
     private FriendAdapter friendAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.friend_list);
 
+        UserListService.userListService = new UserListService();
+        UserListService.userListService.sendInitMessage();
+        UserListService.userListService.startListening();
+
+        setContentView(R.layout.friend_list);
+        Myinfo = (Button) findViewById(R.id.info);;
+        Myinfo.setText(MyInfo.getMyName());
+        ChatService.chatService.name = MyInfo.getMyName();
+        logout = (TextView) findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FriendListActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        //获得从LoginActivity传来的得数据
+//        Intent intent = this.getIntent();
+//        intent.getExtras("myName");
         LinearLayout groupLinerLayout = findViewById(R.id.group_chat_room);
         groupLinerLayout.setOnClickListener(new View.OnClickListener() {
             @Override

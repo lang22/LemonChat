@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">LemonChat</string>
     <string name="title_activity_chat">ChatActivity</string>
+    <string name="set_your_name_here">Set your name here</string>
 </resources>

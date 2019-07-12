@@ -26,6 +26,10 @@ public class MsgQ {
         return this.content;
     }
 
+    public void setContent(String saoki) {
+        content = saoki;
+    }
+
     public int getType(){
         return this.type;
     }

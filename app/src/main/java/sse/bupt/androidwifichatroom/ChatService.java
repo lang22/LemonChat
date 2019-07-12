@@ -11,7 +11,7 @@ import java.util.Random;
 class ChatService {
     public static ChatService chatService;
     public ChatActivity chatActivity;
-    private String name;
+    public String name;
     private ClientSocketHelper clientSocketHelper;
 
     ChatService() {
@@ -39,11 +39,17 @@ class ChatService {
                 switch(msgP.type){
                     case MsgP.MESSAGE_BROADCAST_MESSAGE:
                         MsgQ msgQ = new MsgQ(msgP.contenT,MsgQ.TYPE_RECEIVED);
-
+                        Log.d("TAG","我的名字: "+name+"   msg: "+msgP.contenT);
                         // hack: 收到自己广播的消息，不显示
                         if(msgP.contenT.startsWith(name)){
                             break;
                         }
+
+                        String filtered_Name = msgP.contenT;
+                        if(!"群聊".equals(name)){
+                            filtered_Name = filtered_Name.substring(name.length()+1);
+                        }
+                        msgQ.setContent(filtered_Name);
 
                         if(chatActivity != null) {
                             chatActivity.showMsg(msgQ);

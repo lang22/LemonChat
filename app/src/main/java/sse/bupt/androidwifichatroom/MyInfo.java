@@ -20,4 +20,8 @@ public class MyInfo {
     public static ImageView getMyTX(){ return myTX;}
 
     public static void setMyTX(ImageView newTX){ myTX = newTX;}
+
+    private static String Id = myName+System.currentTimeMillis();
+
+    public static String getId(){ return Id; }
 }

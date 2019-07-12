@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
 
             android:background="@drawable/ic_launcher_background"
-            app:srcCompat="@mipmap/apple_icon"
+            app:srcCompat="@drawable/avatar_male_man"
             tools:layout_editor_absoluteX="0dp" />
 
         <LinearLayout
@@ -100,7 +100,7 @@
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:visibility="visible"
-            app:srcCompat="@mipmap/lemon_icon" />
+            app:srcCompat="@drawable/avatar_businessman" />
 
     </LinearLayout>
 

@@ -90,7 +90,7 @@ public class ChatActivity extends AppCompatActivity {
         msgRecycleView.setAdapter(msgAdapter);
 
 
-        MsgQ m1 = new MsgQ("saoing",MsgQ.TYPE_RECEIVED);
+        MsgQ m1 = new MsgQ("你好！",MsgQ.TYPE_RECEIVED);
         msgList.add(m1);
 
         btnFacetime = findViewById(R.id.facetime);

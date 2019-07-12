@@ -13,8 +13,8 @@
 
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@drawable/ic_launcher_background"
-        app:srcCompat="@color/colorAccent" />
+        android:background="@android:drawable/progress_horizontal"
+        app:srcCompat="@drawable/avatar_male_man" />
 
     <LinearLayout
         android:id="@+id/friend_name_layout"
